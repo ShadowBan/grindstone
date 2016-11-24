@@ -1,0 +1,33 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../shared-styles.html">
+
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+
+
+<dom-module id="task-details">
+  <style is="custom-style" include="shared-styles">
+  </style>
+  
+  <template>
+    <paper-material class="task-details" elevation="2">
+      <span>{{current_task.name}}</span>
+      <button on-click="_editTask"> Edit It </button>
+    </paper-material>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'task-details',
+      properties: {
+        current_task: {
+          type: Object
+        }
+      },
+      _editTask: function(){
+        console.log(this.current_task.name);
+        this.set('current_task.name', "Hello World");
+        console.log(this.current_task.name);
+      }
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,33 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../shared-styles.html">
+
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+
+<dom-module id="task-list-item">
+  <style is="custom-style" include="shared-styles">
+    paper-material.task-item{
+      margin-bottom: 10px;
+    }
+  </style>
+
+  <template>
+    <div class="task">
+      <paper-material class="task-item" elevation="2">
+        <span>Name: {{task.name}}</span> 
+        <button on-click="deleteTask"> Kill it </button>
+      </paper-material>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'task-list-item',
+      properties: {
+        task: Object
+      },
+      deleteTask: function(e, detail) {
+        this.fire('taskDeleted', {task: this.task})
+      }
+    });
+  </script>
+</dom-module>

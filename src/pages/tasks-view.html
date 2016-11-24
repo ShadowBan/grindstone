@@ -1,0 +1,51 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../shared-styles.html">
+<link rel="import" href="../tasks/task-list.html">
+<link rel="import" href="../tasks/task-details.html">
+<link rel="import" href="../tasks/task-add.html">
+
+
+<dom-module id="tasks-view">
+  <style>
+    .column {
+      width:45%;
+      margin:10px;
+    }
+    #task-list{
+      float:left;
+    }
+
+    #task-details{
+      float:right;
+    }
+
+    #task-add {
+      margin: 10px;
+    }
+  </style>
+
+  <template>
+    <div id="task-add">
+      <task-add tasks={{tasks}}></task-add>
+    </div>
+    <div id="task-list" class="column">
+      <task-list tasks={{tasks}} selected_task={{selected_task}}></task-list>
+    </div>
+    <div id= "task-details" class="column"> 
+      <task-details current_task={{selected_task}}></task-details>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'tasks-view',
+      properties: {
+        tasks: {
+          type: Array,
+          value: [{"id":1, "name":"ABC"},{"id":2, "name":"avc"},{"id":3, "name":"123"}]
+        },
+        selected_task: Object
+      }
+    });
+  </script>
+</dom-module>

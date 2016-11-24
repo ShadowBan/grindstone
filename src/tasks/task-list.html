@@ -1,0 +1,43 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../shared-styles.html">
+
+<link rel="import" href="../../bower_components/iron-list/iron-list.html">
+
+<link rel="import" href="task-list-item.html">
+
+<dom-module id="task-list">
+  <style is="custom-style" include="shared-styles">
+  </style>
+
+  <template>
+    <iron-list id="main-list" items="{{tasks}}" as="task" selected-item={{selected_task}} selection-enabled>
+      <template>
+        <task-list-item task="{{task}}"></task-list-item>
+      </template>
+    </iron-list>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'task-list',
+      properties: {
+        tasks: {
+          type: Array,
+          notify: true
+        },
+        selected_task: {
+          type: Object,
+          notify: true
+        }
+      },
+      listeners: {
+        'taskDeleted': 'removeTask'
+      },
+      removeTask: function(e, details) {
+        var task = details.task;
+        var index = this.tasks.indexOf(task);
+        this.splice('tasks', index, 1);
+      }
+    });
+  </script>
+</dom-module>
