@@ -1,0 +1,57 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="../shared-styles.html">
+
+<dom-module id="task-list">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+      .task {
+        display: flex;
+        flex-direction: row;
+      }
+      .task-title{
+        flex: 1 1 auto;
+        display: inline-flex;
+        align-items: center;
+      }
+      .action-done {
+        --paper-icon-button-ink-color: var(--paper-green-500);
+        color: green;
+      }
+    </style>
+
+    <template is="dom-repeat" items="{{tasks}}" as="task">
+      <div class="task card">
+        <span class="task-title">
+          {{task.title}}
+        </span>
+        <span class="task-actions">
+          <paper-icon-button class="action-info" icon="icons:info-outline"></paper-icon-button>
+          <paper-icon-button class="action-done" icon="icons:check"></paper-icon-button>
+        </span>
+      </div>
+    </template>
+  </template>
+
+  <script>
+    class TaskList extends Polymer.Element {
+      static get is() { return 'task-list'; }
+      static get properties() {
+        return {
+          tasks: {
+            type: Array,
+            value: [{title: 'abc'},{title: 'efg'},{title: 'xyz'}]
+          }
+        };
+      }
+    }
+
+    window.customElements.define(TaskList.is, TaskList);
+  </script>
+</dom-module>

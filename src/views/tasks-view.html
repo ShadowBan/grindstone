@@ -1,0 +1,25 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../shared-styles.html">
+<link rel="import" href="../tasks/task-list.html">
+
+<dom-module id="tasks-view">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    </style>
+
+    <task-list></task-list>
+  </template>
+
+  <script>
+    class TasksView extends Polymer.Element {
+      static get is() { return 'tasks-view'; }
+    }
+
+    window.customElements.define(TasksView.is, TasksView);
+  </script>
+</dom-module>

@@ -1,0 +1,29 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../shared-styles.html">
+
+<dom-module id="task-detail">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div class="card">
+      Hello World!
+    </div>
+  </template>
+
+  <script>
+    class TaskDetail extends Polymer.Element {
+      static get is() { return 'task-detail'; }
+      static get properties() {
+        return {
+        };
+      }
+    }
+
+    window.customElements.define(TaskDetail.is, TaskDetail);
+  </script>
+</dom-module>
