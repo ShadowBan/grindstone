@@ -2,8 +2,10 @@
 <link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
 
 <link rel="import" href="../shared-styles.html">
+<link rel="import" href="task-list-item.html">
 
 <dom-module id="task-list">
   <template>
@@ -11,31 +13,16 @@
       :host {
         display: block;
       }
-      .task {
-        display: flex;
-        flex-direction: row;
-      }
-      .task-title{
-        flex: 1 1 auto;
-        display: inline-flex;
-        align-items: center;
-      }
-      .action-done {
-        --paper-icon-button-ink-color: var(--paper-green-500);
-        color: green;
-      }
     </style>
 
-    <template is="dom-repeat" items="{{tasks}}" as="task">
-      <div class="task card">
-        <span class="task-title">
-          {{task.title}}
-        </span>
-        <span class="task-actions">
-          <paper-icon-button class="action-info" icon="icons:info-outline"></paper-icon-button>
-          <paper-icon-button class="action-done" icon="icons:check"></paper-icon-button>
-        </span>
-      </div>
+    <firebase-query
+      id="task-query"
+      path="{{path}}"
+      data="{{tasks}}">
+    </firebase-query>
+
+    <template is="dom-repeat" id="list" items="{{tasks}}" as="task">
+      <task-list-item base-path="{{path}}" task-id="{{task.$key}}"></task-list-item>
     </template>
   </template>
 
@@ -44,11 +31,17 @@
       static get is() { return 'task-list'; }
       static get properties() {
         return {
-          tasks: {
-            type: Array,
-            value: [{title: 'abc'},{title: 'efg'},{title: 'xyz'}]
+          tasks: { type: Array },
+          list: { type: Object },
+          path: {
+            type: String,
+            computed: 'buildPath(list)'
           }
         };
+      }
+
+      buildPath(list) {
+        return "/lists/" + list.id + "/tasks"
       }
     }
 

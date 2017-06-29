@@ -1,5 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+
 <link rel="import" href="../shared-styles.html">
 
 <dom-module id="task-list-item">
@@ -8,10 +10,40 @@
       :host {
         display: block;
       }
+      .task {
+        display: flex;
+        flex-direction: row;
+      }
+      .task-title{
+        flex: 1 1 auto;
+        display: inline-flex;
+        align-items: center;
+      }
+      .action-done {
+        --paper-icon-button-ink-color: var(--paper-green-500);
+        color: var(--paper-green-500);
+      }
+      .action-delete {
+        --paper-icon-button-ink-color: var(--paper-red-500);
+        color: var(--paper-red-500);
+      }
     </style>
 
-    <div class="card">
-      Hello World!
+    <firebase-document
+      id = "task"
+      path="{{path}}"
+      data="{{task}}">
+    </firebase-document>
+
+    <div class="task card">
+      <span class="task-title">
+        {{task.title}}
+      </span>
+      <span class="task-actions">
+        <paper-icon-button class="action-info" icon="icons:info-outline" on-tap='showTask'></paper-icon-button>
+        <paper-icon-button class="action-delete" icon="icons:remove-circle" on-tap="removeTask"></paper-icon-button>
+        <paper-icon-button class="action-done" icon="icons:check" on-tap='markTaskAsDone'></paper-icon-button>
+      </span>
     </div>
   </template>
 
@@ -20,7 +52,32 @@
       static get is() { return 'task-list-item'; }
       static get properties() {
         return {
+          taskId: String,
+          basePath: String,
+          task: Object,
+          path: {
+            type: String,
+            computed: 'buildPath(taskId, basePath)'
+          }
         };
+      }
+
+      buildPath(taskId, basePath) {
+        return basePath + "/" + taskId
+      }
+
+      showTask(e){
+        var task = this.$.list.itemForElement(e.target);
+        console.log(task);
+      }
+
+      removeTask(e){
+        this.$.task._setFirebaseValue(this.path, null)
+      }
+
+      markTaskAsDone(e){
+        var task = this.$.list.itemForElement(e.target);
+        console.log(task);
       }
     }
 

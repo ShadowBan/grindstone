@@ -1,0 +1,47 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../shared-styles.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+
+<dom-module id="task-add">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+    </style>
+
+    <firebase-document
+      id = "task"
+      data="{{newTask}}">
+    </firebase-document>
+
+    <div class="card">
+      <paper-input id="task-title" label="Title" value="{{newTask.title}}"></paper-input>
+      <button on-click='addTask'>Add Task</button> 
+      {{newTask.title}}
+    </div>
+  </template>
+
+  <script>
+    class TaskAdd extends Polymer.Element {
+      static get is() { return 'task-add'; }
+      static get properties() {
+        return {
+          list: Object,
+          newTask: Object
+        };
+      }
+
+      addTask(e) {
+        let path = "/lists/" + this.list.id +"/tasks";
+        this.newTask['listId'] = this.list.id
+        this.$.task.saveValue(path);
+        this.$.task.reset();
+      }
+    }
+
+    window.customElements.define(TaskAdd.is, TaskAdd);
+  </script>
+</dom-module>

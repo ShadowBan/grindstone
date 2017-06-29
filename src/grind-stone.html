@@ -10,6 +10,7 @@
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="my-icons.html">
 
 <link rel="lazy-import" href="views/tasks-view.html">
@@ -55,6 +56,14 @@
         font-weight: bold;
       }
     </style>
+
+    <firebase-app
+      auth-domain='{{firebaseConfig.authDomain}}'
+      database-url="{{firebaseConfig.databaseURL}}"
+      api-key="{{firebaseConfig.apiKey}}"
+      storage-bucket="{{firebaseConfig.storageBucket}}"
+      messaging-sender-id="{{firebaseConfig.messagingSenderId}}">
+    </firebase-app>
 
     <app-location route="{{route}}"></app-location>
     <app-route
@@ -109,6 +118,17 @@
           rootPattern: String,
           routeData: Object,
           subroute: String,
+          firebaseConfig: {
+            type: Object,
+            value: {
+              apiKey: "AIzaSyCKtcmRCe1KchGiKMEOXGfn8pVtRcr5ers",
+              authDomain: "grindstone-1f3c4.firebaseapp.com",
+              databaseURL: "https://grindstone-1f3c4.firebaseio.com",
+              projectId: "grindstone-1f3c4",
+              storageBucket: "grindstone-1f3c4.appspot.com",
+              messagingSenderId: "676441574872"
+            }
+          }
         };
       }
 

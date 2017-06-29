@@ -1,23 +1,32 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../shared-styles.html">
 <link rel="import" href="../tasks/task-list.html">
+<link rel="import" href="../tasks/task-add.html">
 
 <dom-module id="tasks-view">
   <template>
     <style include="shared-styles">
       :host {
         display: block;
-
         padding: 10px;
       }
     </style>
-
-    <task-list></task-list>
+    <h1> List: {{list.title}}</h1>
+    <task-add list="{{list}}"></task-add>
+    <task-list list="{{list}}"></task-list>
   </template>
 
   <script>
     class TasksView extends Polymer.Element {
       static get is() { return 'tasks-view'; }
+      static get properties() {
+        return {
+          list:{
+            type: Object,
+            value: {title: "MyList", id:"abc123"}
+          }
+        };
+      }
     }
 
     window.customElements.define(TasksView.is, TasksView);
