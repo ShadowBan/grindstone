@@ -29,15 +29,13 @@
       static get is() { return 'task-add'; }
       static get properties() {
         return {
-          list: Object,
-          newTask: Object
+          listId: String
         };
       }
 
       addTask(e) {
-        let path = "/lists/" + this.list.id +"/tasks";
-        this.newTask['listId'] = this.list.id
-        this.$.task.saveValue(path);
+        this.newTask['listId'] = this.listId
+        this.$.task.saveValue("/tasks");
         this.$.task.reset();
       }
     }

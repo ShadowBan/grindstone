@@ -17,12 +17,14 @@
 
     <firebase-query
       id="task-query"
-      path="{{path}}"
+      path="/tasks"
+      order-by-child="listId"
+      equal-to="{{listId}}"
       data="{{tasks}}">
     </firebase-query>
 
     <template is="dom-repeat" id="list" items="{{tasks}}" as="task">
-      <task-list-item base-path="{{path}}" task-id="{{task.$key}}"></task-list-item>
+      <task-list-item task-id="{{task.$key}}"></task-list-item>
     </template>
   </template>
 
@@ -31,17 +33,8 @@
       static get is() { return 'task-list'; }
       static get properties() {
         return {
-          tasks: { type: Array },
-          list: { type: Object },
-          path: {
-            type: String,
-            computed: 'buildPath(list)'
-          }
+          listId: String
         };
-      }
-
-      buildPath(list) {
-        return "/lists/" + list.id + "/tasks"
       }
     }
 

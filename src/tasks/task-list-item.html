@@ -31,7 +31,7 @@
 
     <firebase-document
       id = "task"
-      path="{{path}}"
+      path="/tasks/[[taskId]]"
       data="{{task}}">
     </firebase-document>
 
@@ -52,18 +52,8 @@
       static get is() { return 'task-list-item'; }
       static get properties() {
         return {
-          taskId: String,
-          basePath: String,
-          task: Object,
-          path: {
-            type: String,
-            computed: 'buildPath(taskId, basePath)'
-          }
+          taskId: String
         };
-      }
-
-      buildPath(taskId, basePath) {
-        return basePath + "/" + taskId
       }
 
       showTask(e){
@@ -72,7 +62,7 @@
       }
 
       removeTask(e){
-        this.$.task._setFirebaseValue(this.path, null)
+        this.$.task._setFirebaseValue(this.$.task.path, null)
       }
 
       markTaskAsDone(e){
