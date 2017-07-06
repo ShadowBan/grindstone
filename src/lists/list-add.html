@@ -1,0 +1,40 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../shared-styles.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-document.html">
+
+<dom-module id="list-add">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+    </style>
+
+    <firebase-document
+      id = "list"
+      data="{{newList}}">
+    </firebase-document>
+
+    <div>
+      <paper-input id="list-title" label="Title" value="{{newList.title}}"></paper-input>
+      <button on-click='addList'>Add List</button> 
+      {{newList.title}}
+    </div>
+  </template>
+
+  <script>
+    class ListAdd extends Polymer.Element {
+      static get is() { return 'list-add'; }
+      static get properties() { return {}; }
+
+      addList(e) {
+        this.$.list.saveValue("/lists");
+        this.$.list.reset();
+      }
+    }
+
+    window.customElements.define(ListAdd.is, ListAdd);
+  </script>
+</dom-module>

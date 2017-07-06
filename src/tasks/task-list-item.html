@@ -66,8 +66,9 @@
       }
 
       markTaskAsDone(e){
-        var task = this.$.list.itemForElement(e.target);
-        console.log(task);
+        this.task.title = "abcd";
+        this.$.task.setStoredValue(this.$.task.path, this.task)
+        console.log(this.task);
       }
     }
 

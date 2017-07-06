@@ -11,7 +11,6 @@
         padding: 10px;
       }
     </style>
-    <h1> List: {{list.title}}</h1>
     <task-add list-id="{{list.id}}"></task-add>
     <task-list list-id="{{list.id}}"></task-list>
   </template>
@@ -22,8 +21,7 @@
       static get properties() {
         return {
           list:{
-            type: Object,
-            value: {title: "MyList", id:"abc123"}
+            type: Object
           }
         };
       }
