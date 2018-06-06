@@ -18,7 +18,7 @@
     </firebase-document>
 
     <div class="card">
-      <paper-input id="task-title" label="Title" value="{{newTask.title}}"></paper-input>
+      <paper-input id="taskTitle" label="Title" value="{{newTask.title}}"></paper-input>
       <button on-click='addTask'>Add Task</button> 
       {{newTask.title}}
     </div>
@@ -29,7 +29,11 @@
       static get is() { return 'task-add'; }
       static get properties() {
         return {
-          listId: String
+          listId: String,
+          newTask: {
+            type: Object,
+            observer: '_testObserver'
+          }
         };
       }
 
@@ -37,6 +41,11 @@
         this.newTask['listId'] = this.listId
         this.$.task.saveValue("/tasks");
         this.$.task.reset();
+        
+      }
+
+      _testObserver(task) {
+        console.log(task);
       }
     }
 
